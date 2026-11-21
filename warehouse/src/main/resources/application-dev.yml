@@ -1,0 +1,7 @@
+# Khởi động khung trên MySQL trống. Flyway kết nối nhưng chưa áp dụng V1/V2.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    target: "0"
