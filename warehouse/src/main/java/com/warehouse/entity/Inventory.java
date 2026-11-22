@@ -33,6 +33,9 @@ public class Inventory {
     @Column(name = "qty_reserved", nullable = false, precision = 18, scale = 3)
     private BigDecimal qtyReserved;
 
+    @Column(name = "stock_revision", nullable = false)
+    private long stockRevision;
+
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 }

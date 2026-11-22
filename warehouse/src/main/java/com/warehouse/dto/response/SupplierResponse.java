@@ -7,4 +7,7 @@ public record SupplierResponse(
         String phone,
         String address,
         String licenseNo,
-        boolean active) {}
+        boolean active,
+        String code) {
+    public record Option(Long id, String code, String name, boolean active) {}
+}

@@ -6,5 +6,7 @@ public enum Role {
     MANAGER,
     STAFF,
     CUSTOMER,
-    DRIVER
+    DRIVER,
+    SUPPLIER,
+    DISPATCHER
 }

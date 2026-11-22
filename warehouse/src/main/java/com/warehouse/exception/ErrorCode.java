@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
     NOT_IMPLEMENTED(HttpStatus.NOT_IMPLEMENTED, "Chưa cài đặt"),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "Không tìm thấy dữ liệu"),
+    DUPLICATE(HttpStatus.CONFLICT, "Mã đã được sử dụng"),
+    INVALID_STATE(HttpStatus.CONFLICT, "Trạng thái hiện tại không cho phép thao tác"),
     ALREADY_CONFIRMED(HttpStatus.CONFLICT, "Phiếu đã được xác nhận"),
     INSUFFICIENT_STOCK(HttpStatus.CONFLICT, "Số lượng vượt tồn khả dụng"),
     VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Dữ liệu không hợp lệ"),

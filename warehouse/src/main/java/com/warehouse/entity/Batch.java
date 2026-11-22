@@ -10,7 +10,7 @@ import lombok.Setter;
 
 /** Ánh xạ bảng batches. */
 @Entity
-@Table(name = "batches")
+@Table(name = "batches", uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "batch_no"}))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,8 +28,11 @@ public class Batch {
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
-    @Column(name = "batch_no", nullable = false, unique = true)
+    @Column(name = "batch_no", nullable = false)
     private String batchNo;
+
+    @Column(name = "storage_condition")
+    private String storageCondition;
 
     @Column(name = "mfg_date")
     private LocalDate mfgDate;
@@ -37,7 +40,7 @@ public class Batch {
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
-    @Column(name = "received_at", nullable = false)
+    @Column(name = "received_at")
     private LocalDateTime receivedAt;
 
     @Enumerated(EnumType.STRING)

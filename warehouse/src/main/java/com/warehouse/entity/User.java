@@ -44,6 +44,16 @@ public class User {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
+
+    @Column(name = "carrier_name")
+    private String carrierName;
+
+    @Column(name = "driver_available", nullable = false)
+    private boolean driverAvailable = true;
+
     @Column(name = "addr")
     private String addr;
 }

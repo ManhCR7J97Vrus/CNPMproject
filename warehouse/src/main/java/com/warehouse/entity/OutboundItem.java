@@ -36,6 +36,9 @@ public class OutboundItem {
     @Column(name = "qty_picked", nullable = false, precision = 18, scale = 3)
     private BigDecimal qtyPicked;
 
+    @Column(name = "storage_condition")
+    private String storageCondition;
+
     @Column(name = "unit_price", nullable = false, precision = 18, scale = 3)
     private BigDecimal unitPrice;
 }

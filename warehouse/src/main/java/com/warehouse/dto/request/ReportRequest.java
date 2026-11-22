@@ -2,12 +2,12 @@ package com.warehouse.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
-/** Dữ liệu đầu vào của phân hệ báo cáo kho. */
 public final class ReportRequest {
     private ReportRequest() {}
 
-    public record Period(
-            @NotNull LocalDate from,
-            @NotNull LocalDate to) {}
+    public record Period(@NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+                         @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+                         String warehouseName, String sku) {}
 }

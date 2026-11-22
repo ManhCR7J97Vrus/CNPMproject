@@ -13,4 +13,8 @@ public record ProductResponse(
         int expiryAlertDays,
         BigDecimal minStock,
         String storageCondition,
-        boolean active) {}
+        boolean active,
+        boolean perishable,
+        String isolationGroup) {
+    public record CatalogItem(Long id, String skuCode, String name, String unit, String storageCondition) {}
+}

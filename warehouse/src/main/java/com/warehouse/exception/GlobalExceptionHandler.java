@@ -2,7 +2,9 @@ package com.warehouse.exception;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,7 +32,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<Envelope> applicationError(AppException exception) {
-        return response(exception.getCode(), Map.of());
+        return ResponseEntity.status(exception.getCode().getStatus()).body(new Envelope(
+                new ErrorBody(exception.getCode().name(), exception.getMessage(), exception.getFields())));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -41,7 +44,13 @@ public class GlobalExceptionHandler {
         return response(ErrorCode.VALIDATION_ERROR, fields);
     }
 
-    @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Envelope> integrityConflict() {
+        return response(ErrorCode.INVALID_STATE, Map.of());
+    }
+
+    @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class,
+            HandlerMethodValidationException.class})
     public ResponseEntity<Envelope> invalidInput() {
         return response(ErrorCode.VALIDATION_ERROR, Map.of());
     }

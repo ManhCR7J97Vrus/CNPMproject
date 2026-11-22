@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 /** Cổng truy cập bảng locations. */
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
+    boolean existsByWarehouseNameIgnoreCaseAndCodeIgnoreCaseAndIdNot(String warehouseName, String code, Long id);
 }

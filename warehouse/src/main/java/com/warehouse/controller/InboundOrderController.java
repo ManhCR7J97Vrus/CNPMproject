@@ -17,25 +17,25 @@ public class InboundOrderController {
     private final InboundOrderService service;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
-    public List<InboundOrderResponse> listInboundOrders() {
-        return service.listInboundOrders();
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER', 'SUPPLIER')")
+    public List<InboundOrderResponse> listInboundOrders(@RequestParam(required = false) String reference) {
+        return service.listInboundOrders(reference);
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER', 'SUPPLIER')")
     public InboundOrderResponse createInbound(@Valid @RequestBody InboundOrderRequest.Write request) {
         return service.createInbound(request);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER', 'SUPPLIER')")
     public InboundOrderResponse getInbound(@PathVariable("id") Long id) {
         return service.getInbound(id);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER', 'SUPPLIER')")
     public InboundOrderResponse updateInbound(@PathVariable("id") Long id, @Valid @RequestBody InboundOrderRequest.Write request) {
         return service.updateInbound(id, request);
     }
@@ -48,7 +48,20 @@ public class InboundOrderController {
 
     @PostMapping("/{id}/confirm")
     @PreAuthorize("hasRole('MANAGER')")
-    public InboundOrderResponse confirmInbound(@PathVariable("id") Long id) {
-        return service.confirmInbound(id);
+    public InboundOrderResponse confirmInbound(@PathVariable("id") Long id,
+            @Valid @RequestBody(required = false) InboundOrderRequest.Placements placements) {
+        return service.confirmInbound(id, placements);
+    }
+
+    @PostMapping("/{id}/post")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    public InboundOrderResponse postInbound(@PathVariable Long id, @Valid @RequestBody InboundOrderRequest.Placements actual) {
+        return service.postInbound(id, actual);
+    }
+
+    @PostMapping("/returns")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    public InboundOrderResponse createReturn(@Valid @RequestBody InboundOrderRequest.Return request) {
+        return service.createReturn(request);
     }
 }

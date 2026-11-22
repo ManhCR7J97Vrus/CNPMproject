@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /** Ánh xạ bảng locations. */
 @Entity
-@Table(name = "locations")
+@Table(name = "locations", uniqueConstraints = @UniqueConstraint(columnNames = {"warehouse_name", "code"}))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class Location {
     @Column(name = "location_id")
     private Long id;
 
-    @Column(name = "code", nullable = false, unique = true)
+    @Column(name = "code", nullable = false)
     private String code;
 
     @Column(name = "warehouse_name", nullable = false)
@@ -28,6 +28,12 @@ public class Location {
 
     @Column(name = "storage_condition")
     private String storageCondition;
+
+    @Column(name = "rack_code")
+    private String rackCode;
+
+    @Column(name = "is_quarantine", nullable = false)
+    private boolean quarantine;
 
     @Column(name = "is_locked", nullable = false)
     private boolean locked;

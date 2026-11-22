@@ -8,4 +8,6 @@ public record LocationResponse(
         String zoneName,
         String storageCondition,
         boolean locked,
-        boolean active) {}
+        boolean active,
+        String rackCode,
+        boolean quarantine) {}

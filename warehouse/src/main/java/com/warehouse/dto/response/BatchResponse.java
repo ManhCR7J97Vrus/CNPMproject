@@ -13,4 +13,9 @@ public record BatchResponse(
         LocalDate mfgDate,
         LocalDate expiryDate,
         LocalDateTime receivedAt,
-        BatchStatus status) {}
+        BatchStatus status,
+        String skuCode,
+        String productName,
+        String storageCondition) {
+    public record Alerts(LocalDate asOf, java.util.List<BatchResponse> expired, java.util.List<BatchResponse> expiring) {}
+}

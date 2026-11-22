@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đăng nhập | Quản lý kho tập trung</title>
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/layout.css">
-    <link rel="stylesheet" href="./css/components.css">
-    <script type="module" src="./js/pages/index.js"></script>
+    <title>Đăng nhập | Kho trung chuyển</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <script type="module" src="/js/pages/index.js"></script>
 </head>
 <body>
-    <main>
-        <h1>Đăng nhập</h1>
-        <form method="post" action="/api/v1/auth/login">
-            <label for="username">Tên đăng nhập</label>
-            <input id="username" name="username" autocomplete="username" required>
-            <label for="password">Mật khẩu</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required>
-            <button type="submit" disabled>Đăng nhập</button>
-        </form>
+    <main class="login-view">
+        <span class="brand">Kho trung chuyển</span>
+        <section class="panel">
+            <h1>Đăng nhập</h1>
+            <form id="login">
+                <label class="field"><span>Tên đăng nhập</span><input name="username" autocomplete="username" required maxlength="255"></label>
+                <label class="field"><span>Mật khẩu</span><input name="password" type="password" autocomplete="current-password" required maxlength="72"></label>
+                <button type="submit">Đăng nhập</button>
+                <div id="feedback" aria-live="polite"></div>
+            </form>
+            <noscript>Bật JavaScript để đăng nhập.</noscript>
+        </section>
     </main>
 </body>
 </html>

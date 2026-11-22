@@ -22,6 +22,13 @@ public class LocationController {
         return service.listLocations();
     }
 
+    @GetMapping("/suggestions")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    public List<LocationResponse> suggestLocations(@RequestParam Long productId,
+            @RequestParam(required = false) String storageCondition, @RequestParam(defaultValue = "false") boolean quarantine) {
+        return service.suggestLocations(productId, storageCondition, quarantine);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
     public LocationResponse getLocation(@PathVariable("id") Long id) {

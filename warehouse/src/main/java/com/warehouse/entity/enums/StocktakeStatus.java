@@ -4,5 +4,6 @@ package com.warehouse.entity.enums;
 public enum StocktakeStatus {
     DRAFT,
     COUNTED,
+    NEEDS_RECOUNT,
     APPROVED
 }

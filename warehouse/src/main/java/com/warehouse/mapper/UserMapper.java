@@ -1,13 +1,12 @@
 package com.warehouse.mapper;
 
-import com.warehouse.dto.request.UserRequest;
 import com.warehouse.dto.response.UserResponse;
 import com.warehouse.entity.User;
 
-/** Hợp đồng chuyển người dùng sang DTO công khai. */
 public interface UserMapper {
-    UserResponse toResponse(User entity);
-
-    /** Chỉ ánh xạ dữ liệu nhập; service chịu trách nhiệm xử lý các liên kết và quy tắc nghiệp vụ. */
-    User toEntity(UserRequest.Create request);
+    static UserResponse toResponse(User user) {
+        Long supplierId = user.getSupplier() == null ? null : user.getSupplier().getId();
+        return new UserResponse(user.getId(), user.getUsername(), user.getFullName(), user.getEmail(),
+                user.getPhone(), user.getAddr(), user.getRole(), user.isActive(), supplierId, user.getCarrierName());
+    }
 }

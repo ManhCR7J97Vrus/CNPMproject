@@ -18,8 +18,8 @@ public class MovementController {
 
     @GetMapping
     @PreAuthorize("hasRole('MANAGER')")
-    public List<MovementResponse> listMovements() {
-        return service.listMovements();
+    public List<MovementResponse> listMovements(@RequestParam(required = false) String referenceNo) {
+        return service.listMovements(referenceNo);
     }
 
     @PostMapping("/transfer")

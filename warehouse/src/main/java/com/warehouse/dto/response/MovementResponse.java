@@ -13,4 +13,9 @@ public record MovementResponse(
         MovementType movementType,
         String referenceNo,
         BigDecimal changeQty,
-        LocalDateTime createdAt) {}
+        LocalDateTime createdAt,
+        String batchNo,
+        String fromLocation,
+        String toLocation,
+        String createdBy,
+        String reason) {}

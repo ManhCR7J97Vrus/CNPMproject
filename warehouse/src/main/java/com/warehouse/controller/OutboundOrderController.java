@@ -19,8 +19,8 @@ public class OutboundOrderController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('CUSTOMER', 'STAFF', 'MANAGER')")
-    public List<OutboundOrderResponse> listOrders(Principal actor) {
-        return service.listOrders(actor);
+    public List<OutboundOrderResponse> listOrders(@Valid @ModelAttribute OutboundOrderRequest.Search search, Principal actor) {
+        return service.listOrders(search, actor);
     }
 
     @PostMapping
@@ -35,10 +35,23 @@ public class OutboundOrderController {
         return service.getOrder(id, actor);
     }
 
+    @GetMapping("/{id}/suggestions")
+    @PreAuthorize("hasAnyRole('MANAGER', 'STAFF')")
+    public OutboundOrderResponse.Plan suggest(@PathVariable Long id) {
+        return service.suggest(id);
+    }
+
     @PostMapping("/{id}/approve")
     @PreAuthorize("hasRole('MANAGER')")
     public OutboundOrderResponse approveOrder(@PathVariable("id") Long id) {
         return service.approveOrder(id);
+    }
+
+    @PostMapping("/{id}/reallocate")
+    @PreAuthorize("hasRole('MANAGER')")
+    public OutboundOrderResponse reallocate(@PathVariable Long id,
+            @RequestParam(defaultValue = "false") boolean returnedToStorage) {
+        return service.reallocate(id, returnedToStorage);
     }
 
     @PostMapping("/{id}/pick")
@@ -49,8 +62,21 @@ public class OutboundOrderController {
 
     @PostMapping("/{id}/pack")
     @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
-    public OutboundOrderResponse packOrder(@PathVariable("id") Long id) {
-        return service.packOrder(id);
+    public OutboundOrderResponse packOrder(@PathVariable("id") Long id, @Valid @RequestBody OutboundOrderRequest.Pack request) {
+        return service.packOrder(id, request);
+    }
+
+    @PostMapping("/{id}/issue-dispatch")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    public OutboundOrderResponse issueDispatch(@PathVariable Long id) {
+        return service.issueDispatch(id);
+    }
+
+    @PostMapping("/{id}/cancel-request")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public OutboundOrderResponse requestCancel(@PathVariable Long id,
+            @Valid @RequestBody OutboundOrderRequest.CancelRequest request, Principal actor) {
+        return service.requestCancel(id, request, actor);
     }
 
     @PostMapping("/{id}/handover")

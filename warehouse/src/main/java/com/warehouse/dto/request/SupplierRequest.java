@@ -1,15 +1,12 @@
 package com.warehouse.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-/** Dữ liệu đầu vào của phân hệ nhà cung cấp. */
 public final class SupplierRequest {
     private SupplierRequest() {}
 
-    public record Write(
-            @NotBlank String name,
-            String phone,
-            String address,
-            String licenseNo,
-            boolean active) {}
+    public record Write(@NotBlank @Size(max = 255) String name, @Size(max = 255) String phone,
+                        @Size(max = 255) String address, @Size(max = 255) String licenseNo,
+                        boolean active, @NotBlank @Size(max = 255) String code) {}
 }

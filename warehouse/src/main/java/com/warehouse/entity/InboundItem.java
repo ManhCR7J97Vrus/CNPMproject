@@ -3,6 +3,7 @@ package com.warehouse.entity;
 import com.warehouse.entity.enums.ItemCondition;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +41,24 @@ public class InboundItem {
 
     @Column(name = "qty_received", nullable = false, precision = 18, scale = 3)
     private BigDecimal qtyReceived;
+
+    @Column(name = "qty_accepted", nullable = false, precision = 18, scale = 3)
+    private BigDecimal qtyAccepted;
+
+    @Column(name = "proposed_batch_no")
+    private String proposedBatchNo;
+    @Column(name = "mfg_date")
+    private LocalDate mfgDate;
+    @Column(name = "expiry_date")
+    private LocalDate expiryDate;
+    @Column(name = "storage_condition")
+    private String storageCondition;
+    @Column(name = "discrepancy_reason")
+    private String discrepancyReason;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "return_item_id")
+    private OutboundItem returnItem;
 
     @Column(name = "unit_cost", nullable = false, precision = 18, scale = 3)
     private BigDecimal unitCost;

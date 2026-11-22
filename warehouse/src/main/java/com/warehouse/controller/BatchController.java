@@ -23,6 +23,12 @@ public class BatchController {
         return service.listBatches(request);
     }
 
+    @GetMapping("/alerts")
+    @PreAuthorize("hasRole('MANAGER')")
+    public BatchResponse.Alerts alerts() {
+        return service.alerts();
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
     public BatchResponse getBatch(@PathVariable("id") Long id) {

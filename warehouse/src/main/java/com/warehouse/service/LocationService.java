@@ -6,6 +6,7 @@ import java.util.List;
 
 /** Hợp đồng nghiệp vụ cho phân hệ vị trí lưu trữ. */
 public interface LocationService {
+    List<LocationResponse> suggestLocations(Long productId, String storageCondition, boolean quarantine);
     List<LocationResponse> listLocations();
 
     LocationResponse getLocation(Long id);

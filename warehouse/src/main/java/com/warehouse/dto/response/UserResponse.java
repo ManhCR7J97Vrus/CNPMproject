@@ -11,4 +11,6 @@ public record UserResponse(
         String phone,
         String addr,
         Role role,
-        boolean active) {}
+        boolean active,
+        Long supplierId,
+        String carrierName) {}

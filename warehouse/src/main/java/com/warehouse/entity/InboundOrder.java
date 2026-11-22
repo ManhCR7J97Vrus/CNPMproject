@@ -19,8 +19,8 @@ public class InboundOrder {
     @Column(name = "inbound_order_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "supplier_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
     @Column(name = "order_no", nullable = false, unique = true)
@@ -29,6 +29,16 @@ public class InboundOrder {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private InboundStatus status;
+
+    @Column(name = "supplier_notice", nullable = false)
+    private boolean supplierNotice;
+
+    @Column(name = "external_reference")
+    private String externalReference;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "return_of_id")
+    private OutboundOrder returnOf;
 
     @Column(name = "expected_at")
     private LocalDateTime expectedAt;

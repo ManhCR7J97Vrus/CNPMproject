@@ -42,6 +42,12 @@ public class Product {
     @Column(name = "storage_condition")
     private String storageCondition;
 
+    @Column(name = "perishable", nullable = false)
+    private boolean perishable;
+
+    @Column(name = "isolation_group")
+    private String isolationGroup;
+
     @Column(name = "min_stock", nullable = false, precision = 18, scale = 3)
     private BigDecimal minStock;
 }

@@ -22,6 +22,12 @@ public class InventoryController {
         return service.listInventory(request);
     }
 
+    @GetMapping("/summary")
+    @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
+    public InventoryResponse.Summary summarize(@Valid @ModelAttribute InventoryRequest.Search request) {
+        return service.summarize(request);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
     public InventoryResponse getInventory(@PathVariable("id") Long id) {

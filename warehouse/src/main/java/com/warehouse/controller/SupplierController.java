@@ -22,6 +22,13 @@ public class SupplierController {
         return service.listSuppliers();
     }
 
+    @GetMapping("/options")
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF', 'MANAGER')")
+    public List<SupplierResponse.Option> options() {
+        return service.listSuppliers().stream()
+                .map(s -> new SupplierResponse.Option(s.id(), s.code(), s.name(), s.active())).toList();
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('STAFF', 'MANAGER')")
     public SupplierResponse getSupplier(@PathVariable("id") Long id) {
